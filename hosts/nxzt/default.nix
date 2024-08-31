@@ -20,8 +20,14 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = false;
-  services.xserver.xkb.layout = "us";
+  services.xserver = {
+    enable = true;
+    # TODO: deactivate once alacritty works for sure
+    # desktopManager.xterm.enable = false;
+    displayManager.defaultSession = "none+i3";
+    windowManager.i3.enable = true;
+    xkb.layout = "us";
+  };
 
   # Enable sound.
   # hardware.pulseaudio.enable = true;
@@ -45,6 +51,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    alacritty
     curl
     git
     vim
